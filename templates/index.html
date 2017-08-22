@@ -41,30 +41,35 @@
 
 {% block content %}
     {% for article in articles_page.object_list %}
-        <div class="post-preview">
-            <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-                <h2 class="post-title">
-                    {{ article.title }}
-                </h2>
-            </a>
-            {% if SHOW_FULL_ARTICLE %}
-                {{ article.content }}
-            {% else %}
-                <p class="article-summary">
-                {% if article.has_summary %}
-                    {{ article.summary }}
-                {% elif article.summary %}
-                    {{ article.summary|striptags|truncate(140) }}
-                {% endif %}
+        <div class="row">
+            <div class="col-lg-2">
+                <p class="post-meta">
+                    {% for author in article.authors %}
+                        <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    {% endfor %}
+                    </br>
+                    {{ article.locale_date }}
                 </p>
-            {% endif %}
-            <p class="post-meta">Posted by
-                {% for author in article.authors %}
-                    <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                {% endfor %}
-                 on {{ article.locale_date }}
-            </p>
-            {% include 'comments.html' %}
+            </div>
+            <div class="col-lg-8 post-preview">
+                <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
+                    <h2 class="post-title">
+                        {{ article.title }}
+                    </h2>
+                </a>
+                {% if SHOW_FULL_ARTICLE %}
+                    {{ article.content }}
+                {% else %}
+                    <p class="article-summary">
+                    {% if article.has_summary %}
+                        {{ article.summary }}
+                    {% elif article.summary %}
+                        {{ article.summary|striptags|truncate(140) }}
+                    {% endif %}
+                    </p>
+                {% endif %}
+                {% include 'comments.html' %}
+            </div>
         </div>
     {% endfor %}
 
