@@ -55,6 +55,9 @@
                 <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
                     <h2 class="post-title">
                         {{ article.title }}
+                        {% if READ_TIME %}
+                            <p>Loralsdksakdls</p>
+                        {% endif %}
                     </h2>
                 </a>
                 {% if SHOW_FULL_ARTICLE %}
