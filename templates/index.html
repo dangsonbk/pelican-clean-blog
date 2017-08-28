@@ -49,15 +49,16 @@
                     {% endfor %}
                     </br>
                     {{ article.locale_date }}
+                    </br>
+                    {% if article.readtime %}
+                        <i class="fa fa-clock-o"></i><span> {{article.readtime}}</span>
+                    {% endif %}
                 </p>
             </div>
             <div class="col-lg-8 post-preview">
                 <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
                     <h2 class="post-title">
                         {{ article.title }}
-                        {% if READ_TIME %}
-                            <p>Loralsdksakdls</p>
-                        {% endif %}
                     </h2>
                 </a>
                 {% if SHOW_FULL_ARTICLE %}
