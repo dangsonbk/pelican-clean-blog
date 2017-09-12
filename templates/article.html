@@ -105,15 +105,6 @@
                         {% if article.headline %}
                             <h3 class="subheading">{{ article.headline }}</h3>
                         {% endif %}
-                        <span class="meta">Posted by
-                            {% for author in article.authors %}
-                                <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                            {% endfor %}
-                             on {{ article.locale_date }}
-                        </span>
-                        {% if article.modified %}
-                            <span class="meta">Updated on {{ article.locale_modified }}</span>
-                        {% endif %}
                         {% import 'translations.html' as translations with context %}
                         {{ translations.translations_for(article) }}
                     </div>
@@ -124,6 +115,15 @@
 {% endblock header %}
 
 {% block content %}
+    <span class="article-meta">Post by
+        {% for author in article.authors %}
+            <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+        {% endfor %}
+        on {{ article.locale_date }}
+    </span>
+    {% if article.modified %}
+        <span class="article-meta">Updated on {{ article.locale_modified }}</span>
+    {% endif %}
     <!-- Post Content -->
     <article>
         {{ article.content }}
