@@ -6,11 +6,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         {% if GOOGLE_SITE_VERIFICATION %}
             <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">
         {% endif %}
-
         <title>{% block title %}{{ SITENAME }}{% if SITESUBTITLE and SHOW_SITESUBTITLE_IN_HTML %} - {{ SITESUBTITLE }}{% endif %}{% endblock title %}</title>
 
     {% for name,link in SOCIAL if name in ['rss', 'rss-square'] %}
@@ -87,7 +85,7 @@
             <meta name="twitter:card" content="summary_large_image">
             <meta name="twitter:site" content="@{{ link|replace('http://', 'https://')|replace('https://twitter.com/', '') }}">
             <meta name="twitter:title" content="{{ SITENAME }}">
-            <meta name="twitter:description" content="{{ SITESUBTITLE|default('View the blog.') }}">
+            <meta name="twitter:description" content="{{ SITEDESCRIPTION|default('View the blog.') }}">
             {% if HEADER_COVER %}
                 <meta name="twitter:image" content="{{ SITEURL }}/{{ HEADER_COVER }}">
             {% else %}
