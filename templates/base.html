@@ -170,6 +170,11 @@
                         {% endfor %}
                     {% endif %}
                     </ul>
+                    <ul class="list-inline text-center">
+                    {% if DISCORD %}
+                        <a href="{{ DISCORD }}" target="_blank"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/discord.png"></a>
+                    {% endif %}
+                    </ul>
                     {% if FOOTER_INCLUDE %}
                         {% include FOOTER_INCLUDE %}
                     {% else %}
