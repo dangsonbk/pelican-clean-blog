@@ -4,7 +4,7 @@
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
     {% if HEADER_COVER %}
-        <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
+        <header class="intro-header" style="background-image: url('{{ SITEURL }}/{{ HEADER_COVER }}')">
     {% elif HEADER_COLOR %}
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
@@ -12,9 +12,26 @@
     {% endif %}
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="col-lg-8 mx-auto">
                     <div class="page-heading">
-
+                        <h1>{{ SITENAME }}</h1>
+                        {% if SITESUBTITLE %}
+                            <hr class="small">
+                            <span class="subheading">{{ SITESUBTITLE }}</span>
+                        {% endif %}
+                        {% if SOCIAL and SHOW_SOCIAL_ON_INDEX_PAGE_HEADER %}
+                            <ul class="list-inline text-center">
+                            {% for name, link in SOCIAL %}
+                                <li class="list-inline-item">
+                                    <a href="{{ link }}">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-{{ name|lower }} fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -30,26 +47,25 @@
             {% for article in articles_page.object_list %}
             <div class="col-lg-4 col-md-4">
                 <aside>
-                <img src="{{ SITEURL }}/{{article.header_cover}}" class="img-responsive">
-                <div class="content-title">
-                    <div class="text-center">
-                        <a href="#">{{ article.title }}</a>
+                    <a href="{{ SITEURL }}/{{ article.url }}"><img src="{{ SITEURL }}/{{article.header_cover}}" class="img-responsive mx-auto" style="height:150px;"></a>
+                    <div class="content-title">
+                        <div class="text-center">
+                            <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+                        </div>
                     </div>
-                </div>
-                <div class="content-footer">
-                    <!-- <img class="user-small-img" src="https://lh3.googleusercontent.com/-uwagl9sPHag/WM7WQa00ynI/AAAAAAAADtA/hio87ZnTpakcchDXNrKc_wlkHEcpH6vMwCJoC/w140-h148-p-rw/profile-pic.jpg"> -->
+                    <div class="content-footer">
+                        <!-- <img class="user-small-img" src="https://lh3.googleusercontent.com/-uwagl9sPHag/WM7WQa00ynI/AAAAAAAADtA/hio87ZnTpakcchDXNrKc_wlkHEcpH6vMwCJoC/w140-h148-p-rw/profile-pic.jpg"> -->
 
-                    {% for author in article.authors %}
-                    <a href="{{ SITEURL }}/{{ author.url }}"><span style="font-size: 16px;color: #fff;">{{ author }}</span></a>
-                    {% endfor %}
-
-                    <span>
-                        <a href="#" data-toggle="tooltip" data-placement="left" title="Comments"><i class="fa fa-comments" ></i> {{ article.locale_date }}</a>
-                        {% if article.readtime %}
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="Read time"><i class="fa fa-clock-o"></i> {{article.readtime}}</a>
-                        {% endif %}
-                    </span>
-                </div>
+                        <span>
+                            {% for author in article.authors %}
+                            <a href="{{ SITEURL }}/{{ author.url }}" style="font-size: 16px;color: #fff;">{{ author }}</a>
+                            {% endfor %}
+                            <a href="#" data-toggle="tooltip" data-placement="left" title="Comments"><i class="fa fa-comments" ></i> {{ article.locale_date }}</a>
+                            {% if article.readtime %}
+                            <a href="#" data-toggle="tooltip" data-placement="right" title="Read time"><i class="fa fa-clock-o"></i> {{article.readtime}}</a>
+                            {% endif %}
+                        </span>
+                    </div>
                 </aside>
             </div>
             {% endfor %}

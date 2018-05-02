@@ -98,55 +98,49 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="{{ SITEURL }}/"><span class="glyphicon glyphicon-home"></span> CucCode</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% for title, link in MENUITEMS %}
+                    <li><a class="nav-link"  href="{{ link }}">{{ title }}</a></li>
+                {% endfor %}
 
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand" href="{{ SITEURL }}/"><span class="glyphicon glyphicon-home"></span> CucCode</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    {% for title, link in MENUITEMS %}
-                        <li><a class="nav-link"  href="{{ link }}">{{ title }}</a></li>
+                {% if DISPLAY_PAGES_ON_MENU %}
+                    {% for p in PAGES or pages %}
+                        <li{% if p == page %} class="active"{% endif %}><a  class="nav-link"  href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
                     {% endfor %}
-
-                    {% if DISPLAY_PAGES_ON_MENU %}
-                        {% for p in PAGES or pages %}
-                            <li{% if p == page %} class="active"{% endif %}><a  class="nav-link"  href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
-                        {% endfor %}
-                    {% endif %}
-                    {% if DISPLAY_CATEGORIES_ON_MENU %}
-                        {% for cat, null in categories %}
-                            <li{% if cat == category %} class="active"{% endif %}><a  class="nav-link"  href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
-                        {% endfor %}
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-    </header>
+                {% endif %}
+                {% if DISPLAY_CATEGORIES_ON_MENU %}
+                    {% for cat, null in categories %}
+                        <li{% if cat == category %} class="active"{% endif %}><a  class="nav-link"  href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
 
     {% block header %}{% endblock header %}
-
-    <!-- Main Content -->
-<!--     <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-md-10 col-md-offset-1"> -->
     {% block content %}{% endblock content %}
-<!--             </div>
-        </div>
-    </div> -->
-
-    <hr>
-
     <!-- Footer -->
-    <footer>
-        <div class="container">
+    <footer class="bg-dark">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="col-lg-4">
+                    <p class="copyright">
+                        Blog powered by <a href="http://getpelican.com">Pelican</a>,
+                        which takes great advantage of <a href="http://python.org">Python</a> <br />
+                        Theme <a href="https://github.com/dangsonbk/pelicana-clean-blog">pelicana-clean-blog</a>, a modified version of <a href="https://github.com/gilsondev/pelican-clean-blog">pelican-clean-blog</a> <br />
+                        &copy; {{ copy_date }} {{ AUTHOR }}
+                    </p>
+                </div>
+                <div class="col-lg-8">
                     <ul class="list-inline text-center">
                     {% if SOCIAL %}
                         {% for name,link in SOCIAL %}
-                            <li>
+                            <li class="list-inline-item">
                                 <a href="{{ link }}">
                                     <span class="fa-stack fa-lg">
                                         <i class="fa fa-circle fa-stack-2x"></i>
@@ -162,20 +156,11 @@
                         <a href="{{ DISCORD }}" target="_blank"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/discord.png"></a>
                     {% endif %}
                     </ul>
-                    {% if FOOTER_INCLUDE %}
-                        {% include FOOTER_INCLUDE %}
-                    {% else %}
-                        {% include 'footer.html' %}
-                    {% endif %}
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- jQuery -->
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
