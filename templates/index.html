@@ -14,24 +14,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
-                        <h1>{{ SITENAME }}</h1>
-                        {% if SITESUBTITLE %}
-                            <hr class="small">
-                            <span class="subheading">{{ SITESUBTITLE }}</span>
-                        {% endif %}
-                        {% if SOCIAL and SHOW_SOCIAL_ON_INDEX_PAGE_HEADER %}
-                            <ul class="list-inline text-center">
-                            {% for name, link in SOCIAL %}
-                                <li>
-                                    <a href="{{ link }}">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-{{ name|lower }} fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        {% endif %}
+
                     </div>
                 </div>
             </div>
@@ -40,48 +23,39 @@
 {% endblock header %}
 
 {% block content %}
-    {% for article in articles_page.object_list %}
+
+<section id="blog-section" >
+    <div class="container">
         <div class="row">
-            <div class="col-lg-2 hidden-sm hidden-md">
-                <p class="post-meta">
+            {% for article in articles_page.object_list %}
+            <div class="col-lg-4 col-md-4">
+                <aside>
+                <img src="{{ SITEURL }}/{{article.header_cover}}" class="img-responsive">
+                <div class="content-title">
+                    <div class="text-center">
+                        <a href="#">{{ article.title }}</a>
+                    </div>
+                </div>
+                <div class="content-footer">
+                    <!-- <img class="user-small-img" src="https://lh3.googleusercontent.com/-uwagl9sPHag/WM7WQa00ynI/AAAAAAAADtA/hio87ZnTpakcchDXNrKc_wlkHEcpH6vMwCJoC/w140-h148-p-rw/profile-pic.jpg"> -->
+
                     {% for author in article.authors %}
-                        <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    <a href="{{ SITEURL }}/{{ author.url }}"><span style="font-size: 16px;color: #fff;">{{ author }}</span></a>
                     {% endfor %}
-                    </br>
-                    {{ article.locale_date }}
-                    </br>
-                    {% if article.readtime %}
-                        <i class="fa fa-clock-o"></i><span> {{article.readtime}}</span>
-                    {% endif %}
-                </p>
+
+                    <span>
+                        <a href="#" data-toggle="tooltip" data-placement="left" title="Comments"><i class="fa fa-comments" ></i> {{ article.locale_date }}</a>
+                        {% if article.readtime %}
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="Read time"><i class="fa fa-clock-o"></i> {{article.readtime}}</a>
+                        {% endif %}
+                    </span>
+                </div>
+                </aside>
             </div>
-            <div class="col-lg-8 post-preview">
-                <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-                    <h3 class="post-title">
-                        {{ article.title }}
-                    </h3>
-                </a>
-                {% if SHOW_FULL_ARTICLE %}
-                    {{ article.content }}
-                {% else %}
-                    <p class="article-summary">
-                    {% if article.has_summary %}
-                        {{ article.summary }}
-                    {% elif article.summary %}
-                        {{ article.summary|striptags|truncate(140) }}
-                    {% endif %}
-                    </p>
-                {% endif %}
-                <!-- {% include 'comments.html' %} -->
-            </div>
-        </div>
-    {% endfor %}
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 post-preview">
-            <a href="https://www.vultr.com/?ref=7106385"><img src="https://www.vultr.com/media/banner_2.png" width="468" height="60"></a>
-        <!-- <a href="https://www.vultr.com/?ref=7106385"><img src="https://www.vultr.com/media/banner_1.png"></a> -->
+            {% endfor %}
         </div>
     </div>
+</section>
 
     {% include "pagination.html" %}
 {% endblock content %}
