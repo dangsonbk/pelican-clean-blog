@@ -47,12 +47,20 @@
             {% for article in articles_page.object_list %}
             <div class="col-lg-4 col-md-4">
                 <aside>
+
+                    {% if article.header_cover %}
                     <div class="content-bounding-box" style="background-image:url('{{ SITEURL }}/{{article.header_cover}}');"></div>
-                        <div class="content-title">
-                            <h5 class="text-center">
-                                <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
-                            </h5>
-                        </div>
+                    {% elif article.frontpage_cover %}
+                    <div class="content-bounding-box" style="background-image:url('{{ SITEURL }}/{{article.frontpage_cover}}');"></div>
+                    {% else %}
+                    <div class="content-bounding-box" style="background-image:url('{{ SITEURL }}/{{HEADER_COVER}}');"></div>
+                    {% endif %}
+
+                    <div class="content-title">
+                        <h5 class="text-center">
+                            <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+                        </h5>
+                    </div>
                     <div class="content-footer">
                         <!-- <img class="user-small-img" src="https://lh3.googleusercontent.com/-uwagl9sPHag/WM7WQa00ynI/AAAAAAAADtA/hio87ZnTpakcchDXNrKc_wlkHEcpH6vMwCJoC/w140-h148-p-rw/profile-pic.jpg"> -->
 
