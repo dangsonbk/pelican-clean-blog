@@ -1,0 +1,9 @@
+{% if EMOJICON_CAMPAIGN %}
+<script>
+    window.EMOJICOM_WIDGET = {
+        campaign: "{{ EMOJICON_CAMPAIGN }}"
+    };
+</script>
+<script src="https://cdn.emojicom.io/embed/widget.js" async></script>
+
+{% endif %}
